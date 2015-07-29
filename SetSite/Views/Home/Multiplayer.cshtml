@@ -1,0 +1,49 @@
+﻿@{
+    ViewBag.Title = "Multiplayer";
+}
+
+<h2>Multiplayer Game <span id="gameId">@ViewBag.gameId</span></h2>
+
+<div id="multiplayerDiv">
+    <div id="addDiv" hidden="hidden">
+        <h4>Invite Friends</h4>
+        @*<button class="addPlayerButton" onclick="setApp.AddPlayer()">Friend1</button>*@
+        @*@foreach (var friend in @ViewBag.friends)
+            {
+                <div class="friendDiv" id="friend" + @friend.Id>@friend.Name</div>
+            }*@
+    </div>
+</div>
+<div id="multiplayerGrid">
+    <div id="boardControls">
+        <div id="setBoard">
+        </div>
+        <div id="scoreBoard">
+            <div class="col-md-5">
+                <label>Sets Found: <span id="setCount"></span></label>
+                <label>Time Played: <span id="timePlayed"></span></label>
+            </div>
+            <div id="buttonContainer" class="col-md-7">
+                <button id="generateButton" class="btn btn-default generateButton" onclick="setApp.SendStart()">Start</button>
+                <button id="startButton" class="btn btn-success" onclick="setApp.SendResume()">Start</button>
+                <button id="pauseButton" class="btn btn-danger" onclick="setApp.SendPause()">Pause</button>
+            </div>
+        </div>
+    </div>
+    <div>
+        <div id="foundSetsDiv">
+            <label>Found Sets</label>
+            <div id="foundSets"></div>
+        </div>
+    </div>
+</div>
+
+@section scripts
+{
+    <script src="~/Scripts/jquery.signalR-2.2.0.min.js"></script>
+    <script src="~/signalr/hubs"></script>
+    <script src="~/App_Scripts/SetGame.js"></script>
+    <script src="~/App_Scripts/SetUI.js"></script>
+    <script src="~/App_Scripts/Timer.js"></script>
+    <script src="~/App_Scripts/Multiplayer.js"></script>
+}

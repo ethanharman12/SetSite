@@ -1,0 +1,80 @@
+﻿@{
+    ViewBag.Title = "Rules";
+}
+
+<h2>Rules</h2>
+
+<p>
+    The deck of set is made up of 81 cards.  Every card has 4 different attributes:
+</p>
+<ul>
+    <li>
+        Color
+        <ul>
+            <li>Blue</li>
+            <li>Green</li>
+            <li>Red</li>
+        </ul>
+    </li>
+    <li>
+        Shape
+        <ul>
+            <li>Circle</li>
+            <li>Square</li>
+            <li>Triangle</li>
+        </ul>
+    </li>
+    <li>
+        Number
+        <ul>
+            <li>1</li>
+            <li>2</li>
+            <li>3</li>
+        </ul>
+    </li>
+    <li>
+        Fill
+        <ul>
+            <li>Empty</li>
+            <li>Striped</li>
+            <li>Solid</li>
+        </ul>
+    </li>
+</ul>
+<p>
+    The cards are displayed 12 at a time like so:
+    <div class="setBoard exampleBoard" id="staticBoard"></div>
+    <div class="scoreBoard"></div>
+</p>
+<p>
+    The objective of Set is to find a set of 3 cards whose attributes are either all the same or all different.
+    This can be confusing, so here are some visual examples:
+    <div id="examples">
+        <h3>All 3 have the same Color and Number, but different Shapes and Fill</h3>
+        <div class="setBoard exampleBoard" id="exampleBoardAllSameColorNumber"></div>
+        <h3>All 3 have the same Number, Shape, and Fill, but different Colors</h3>
+        <div class="setBoard exampleBoard" id="exampleBoardAllSameNumberShapeFill"></div>
+        <h3>All 3 have the same Shape, Fill, and Color, but different Numbers</h3>
+        <div class="setBoard exampleBoard" id="exampleBoardAllSameShapeFillColor"></div>
+        <h3>All 3 have the same Shape and Color, but different Numbers and Fills</h3>
+        <h4>
+            This set doesn't work because the numbers and fills are not distinctly different.
+            <br />Instead of 1,2,3 or 3,3,3 it is 3,2,3.
+            <br />Instead of Striped,Striped,Striped or Solid,Striped,Empty it is Solid, Striped, Striped.
+        </h4>
+        <div class="setBoard exampleBoard" id="exampleBoardDifferentNumberFill"></div>
+    </div>
+</p>
+<p>
+    Once a correct set is found, the three cards are removed from the board and replaced by three new cards.
+    This continues until the deck is empty or no new sets are possible.
+</p>
+<p>
+    And that's it. If you play a few <a href="/Home/Solitaire">solitaire</a> rounds you should get the hang of it in no time!
+</p>
+
+@section scripts
+{
+    <script src="~/App_Scripts/SetUI.js"></script>
+    <script src="~/App_Scripts/Rules.js"></script>
+}

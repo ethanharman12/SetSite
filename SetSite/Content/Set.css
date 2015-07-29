@@ -1,0 +1,205 @@
+﻿#solitaireGrid, #botsGrid, #multiplayerGrid
+{
+    display: flex;
+}
+
+#botsDiv, #multiplayerDiv
+{
+    display: flex;
+    margin: 10px;
+    padding: 10px;
+}
+
+#addDiv{
+    display: flex;    
+    flex-direction:column;
+}
+
+.opponentDiv{
+    margin:10px;
+    padding:10px;
+}
+
+#boardControls{
+    margin: 10px;
+    padding: 10px;
+}
+
+#foundSetsDiv{
+    margin:10px;
+    padding: 10px;
+}
+
+#possibleSetsDiv {
+    margin: 10px;
+    padding: 10px;
+}
+
+    #possibleSetsDiv button {
+        margin-left: 5px;
+    }
+
+.foundRow{
+    padding:5px;
+    border: 1px black solid;
+    background-color: lightgray;
+    transform: scale(.4);
+    transform-origin: top left;
+    transition: transform .5s;
+}
+
+.foundRow:hover{
+    position: relative;
+    transform: scale(1,1);    
+    z-index: 1;
+}
+
+#setBoard, .setBoard {
+    height: 350px;
+    width: 450px;
+    background-color: lightslategrey;
+    margin: 5px;
+    position: relative;
+}
+
+    .setBoard + button {
+        margin: 5px;
+    }
+
+#scoreBoard, .scoreBoard {
+    margin: 5px;
+    width: 450px;
+}
+
+#scoreBoard label{
+    display:block;
+}
+
+.card {
+    height: 100px;
+    width: 100px;
+    border: solid 1px black;
+    margin: 5px;
+    cursor: pointer;
+    background-color: white;
+    -webkit-transition: opacity 1s;
+    transition: opacity 1s;
+    box-sizing: content-box;
+}
+
+.exampleBoard > .card, .exampleCard {
+    cursor: default;
+}
+
+.cardSelect {
+    border: solid 1px purple;
+    background-color: aqua;
+}
+
+.cardError {
+    border: solid 1px purple;
+    background-color: lightpink;
+}
+
+#buttonContainer {
+    display: inline;
+}
+
+    #buttonContainer button {
+        margin-left: 5px;
+        float:right;
+    }
+
+@-webkit-keyframes preview {
+    0% {
+        background-color: white;
+    }
+
+    50% {
+        background-color: purple;
+        /*transform: scale(1.5);*/
+    }
+
+    100% {
+        background-color: white;
+        /*transform: scale(-1.5);*/
+    }
+}
+
+@keyframes preview {
+    0% {
+        background-color: white;
+    }
+
+    50% {
+        background-color: purple;
+        /*transform: scale(1.5);*/
+    }
+
+    100% {
+        background-color: white;
+        /*transform: scale(-1.5);*/
+    }
+}
+
+.preview {
+    -webkit-animation: preview; /* Chrome, Safari, Opera */
+    -webkit-animation-duration: 2s; /* Chrome, Safari, Opera */
+    animation: preview;
+    animation-duration: 2s;
+}
+
+.gameOverBanner{
+    position: absolute;
+    top:40%;
+    width:100%;    
+    background-color:purple;
+    opacity: .7;
+    text-align:center;
+    font-weight:bold;
+    font-size:x-large;
+    color:white;
+    padding:10px;
+    /*border: 1px solid silver;*/
+    text-shadow: 1px 1px 2px #000, -1px -1px 2px #000;
+}
+
+.pauseBanner{
+    position: relative;
+    top:40%;
+    width:100%;    
+    background-color:purple;
+    opacity: .7;
+    text-align:center;
+    font-weight:bold;
+    font-size:x-large;
+    color:white;
+    padding:10px;
+    /*border: 1px solid silver;*/
+    text-shadow: 1px 1px 2px #000, -1px -1px 2px #000;
+}
+
+.negativeVote{
+    background-color: red;
+}
+
+.positiveVote{
+    background-color: green;
+}
+
+.friendDiv{
+    cursor:pointer;
+    border: solid 1px black;
+    padding:10px;
+    margin:5px;
+}
+
+.disconnected{
+    color: red;
+    min-width:5px;
+}
+
+.connected{
+    color: green;
+    min-width:5px;
+}

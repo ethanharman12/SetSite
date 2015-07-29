@@ -1,0 +1,49 @@
+﻿@{
+    ViewBag.Title = "Solitaire";
+}
+
+<h2>Solitaire</h2>
+
+<div id="solitaireGrid">
+    <div id="boardControls">
+        <div id="setBoard">
+        </div>
+        <div id="scoreBoard">
+            <div class="col-md-5">
+                <label>Sets Found: <span id="setCount"></span></label>
+                <label>Time Played: <span id="timePlayed"></span></label>
+            </div>
+            <div id="buttonContainer" class="col-md-7">
+                <button id="hardButton" class="btn btn-default generateButton" onclick="setApp.GenerateSet(false)">Hard</button>
+                <button id="easyButton" class="btn btn-default generateButton" onclick="setApp.GenerateSet(true)">Easy</button>
+                <button id="startButton" class="btn btn-success" onclick="setApp.ResumeGame()">Start</button>
+                <button id="pauseButton" class="btn btn-danger" onclick="setApp.PauseGame()">Pause</button>
+            </div>
+        </div>
+    </div>
+    <div>
+        <div id="possibleSetsDiv">
+            <label for="possibleSetsCheck">
+                Show Number of Possible Sets:
+                <input type="checkbox" id="possibleSetsCheck" onchange="setApp.TogglePossible()" />
+            </label>
+            @*<button onclick="setApp.DetermineSets()">Any Sets?</button>*@
+            <div id="possibleSetsDisplay">
+                <span id="possibleSetsCount"></span>
+                <button id="showSolButton" class="btn btn-default" onclick="setApp.DisplaySet()" disabled>Show Set</button>
+            </div>
+        </div>
+        <div id="foundSetsDiv">
+            <label>Found Sets</label>
+            <div id="foundSets"></div>
+        </div>
+    </div>
+</div>
+
+@section scripts
+{
+    <script src="~/App_Scripts/SetGame.js"></script>
+    <script src="~/App_Scripts/Timer.js"></script>
+    <script src="~/App_Scripts/SetUI.js"></script>
+    <script src="~/App_Scripts/Solitaire.js"></script>
+}
