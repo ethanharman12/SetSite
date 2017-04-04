@@ -1,18 +1,13 @@
-﻿using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.SignalR;
+﻿using Microsoft.AspNet.SignalR;
 using Microsoft.AspNet.SignalR.Hubs;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using SetSite.Models;
-using SetSite.Tests.Mocks;
+using SetSite.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Dynamic;
-using System.Linq;
 using System.Security.Claims;
-using System.Security.Principal;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SetSite.Tests
 {
@@ -29,10 +24,10 @@ namespace SetSite.Tests
         public void CreateGame()
         {
             var clientGameId = 0;
-
-            // Arrange
-            var mockRepo = new MockSetRepository();
-            MultiplayerGameHub hub = new MultiplayerGameHub(mockRepo);
+            
+            var mockRepo = new Mock<ISetRepository>();
+            mockRepo.Setup(repo => repo.CreateGame(It.IsAny<Game>())).Returns(1);
+            var hub = new MultiplayerGameHub(mockRepo.Object);
             var mockClients = new Mock<IHubCallerConnectionContext<dynamic>>();
             hub.Clients = mockClients.Object;
             dynamic all = new ExpandoObject();
@@ -41,28 +36,23 @@ namespace SetSite.Tests
                 clientGameId = id;
             });
             mockClients.Setup(m => m.All).Returns((ExpandoObject)all);
-
-            // Act
+            
             var result = hub.CreateGame();
-
-            // Assert
+            
             Assert.IsNotNull(result);
-            Assert.IsNotNull(mockRepo.FindGame(result));
+            mockRepo.Verify(repo => repo.CreateGame(It.IsAny<Game>()));
             Assert.AreEqual(1, clientGameId);
         }
 
         [TestMethod]
         public void GetCurrentGames()
         {
-            // Arrange
-            var mockRepo = new MockSetRepository();
-            MultiplayerGameHub hub = new MultiplayerGameHub(mockRepo);
+            var mockRepo = new Mock<ISetRepository>();
+            MultiplayerGameHub hub = new MultiplayerGameHub(mockRepo.Object);
             MultiplayerGameHub.games.Add("Game5", new SetGame());
-
-            // Act
+            
             var result = hub.GetCurrentGames();
-
-            // Assert
+            
             Assert.IsNotNull(result);
             Assert.AreEqual(1, result.Count);
             Assert.AreEqual(5, result[0]);
@@ -74,10 +64,11 @@ namespace SetSite.Tests
             bool playerJoined = false;
             double timeSet = -1;
 
-            // Arrange
-            var mockRepo = new MockSetRepository();
-            mockRepo.Users.Add(new ApplicationUser() { Id = 2, DisplayName = "TestPlayer" });
-            MultiplayerGameHub hub = new MultiplayerGameHub(mockRepo);
+            var mockRepo = new Mock<ISetRepository>();
+            mockRepo.Setup(repo => repo.FindPlayer(It.IsAny<int>()))
+                    .Returns(new ApplicationUser() { Id = 2, DisplayName = "TestPlayer" });
+            
+            MultiplayerGameHub hub = new MultiplayerGameHub(mockRepo.Object);
             var setGame = new SetGame();
             MultiplayerGameHub.games.Add("Game6", setGame);
 
@@ -105,11 +96,9 @@ namespace SetSite.Tests
             mockClients.Setup(m => m.Caller).Returns((ExpandoObject)all);
             mockClients.Setup(m => m.Others).Returns((ExpandoObject)all);
             mockClients.Setup(m => m.OthersInGroup(It.IsAny<string>())).Returns((ExpandoObject)all);
-
-            // Act
+            
             hub.JoinGame(6).Wait();
-
-            // Assert
+            
             Assert.IsTrue(playerJoined);
             Assert.IsTrue(setGame.Players.Count == 1);
             Assert.AreEqual(0, timeSet);
@@ -123,12 +112,12 @@ namespace SetSite.Tests
             bool playerJoined = false;
             bool playerRejoined = false;
             double timeSet = -1;
-            List<List<Card>> playerSets = null;            
+            List<List<Card>> playerSets = null;
 
-            // Arrange
-            var mockRepo = new MockSetRepository();
-            mockRepo.Users.Add(new ApplicationUser() { Id = 2, DisplayName = "TestPlayer" });
-            MultiplayerGameHub hub = new MultiplayerGameHub(mockRepo);
+            var mockRepo = new Mock<ISetRepository>();
+            mockRepo.Setup(repo => repo.FindPlayer(It.IsAny<int>()))
+                    .Returns(new ApplicationUser() { Id = 2, DisplayName = "TestPlayer" });
+            MultiplayerGameHub hub = new MultiplayerGameHub(mockRepo.Object);
             var setGame = new SetGame();
             setGame.Players.Add(new PlayerViewModel() { Id = 2, Name = "TestPlayer", Sets = new List<List<Card>>() });
             setGame.IsPaused = true;
@@ -176,11 +165,9 @@ namespace SetSite.Tests
             mockClients.Setup(m => m.Caller).Returns((ExpandoObject)all);
             mockClients.Setup(m => m.Others).Returns((ExpandoObject)all);
             mockClients.Setup(m => m.OthersInGroup(It.IsAny<string>())).Returns((ExpandoObject)all);
-
-            // Act
+            
             hub.JoinGame(6).Wait();
-
-            // Assert
+            
             Assert.IsFalse(playerJoined);
             Assert.IsTrue(playerRejoined);
             Assert.IsTrue(isPaused);
@@ -200,10 +187,10 @@ namespace SetSite.Tests
             double timeSet = -1;
             List<List<Card>> playerSets = null;
 
-            // Arrange
-            var mockRepo = new MockSetRepository();
-            mockRepo.Users.Add(new ApplicationUser() { Id = 2, DisplayName = "TestPlayer" });
-            MultiplayerGameHub hub = new MultiplayerGameHub(mockRepo);
+            var mockRepo = new Mock<ISetRepository>();
+            mockRepo.Setup(repo => repo.FindPlayer(It.IsAny<int>()))
+                    .Returns(new ApplicationUser() { Id = 2, DisplayName = "TestPlayer" });
+            MultiplayerGameHub hub = new MultiplayerGameHub(mockRepo.Object);
             var setGame = new SetGame();
             setGame.Players.Add(new PlayerViewModel() { Id = 3, Name = "TestPlayer2", Sets = new List<List<Card>>() });
             setGame.IsPaused = true;
@@ -255,11 +242,9 @@ namespace SetSite.Tests
             mockClients.Setup(m => m.Caller).Returns((ExpandoObject)all);
             mockClients.Setup(m => m.Others).Returns((ExpandoObject)all);
             mockClients.Setup(m => m.OthersInGroup(It.IsAny<string>())).Returns((ExpandoObject)all);
-
-            // Act
+            
             hub.JoinGame(6).Wait();
-
-            // Assert
+            
             Assert.IsTrue(playerJoined);
             Assert.IsFalse(playerRejoined);
             Assert.IsTrue(isPaused);
@@ -275,9 +260,9 @@ namespace SetSite.Tests
             double timeSet = -1;
             List<List<Card>> playerSets = null;
 
-            // Arrange
-            var mockRepo = new MockSetRepository();
-            mockRepo.Users.Add(new ApplicationUser() { Id = 2, DisplayName = "TestPlayer" });
+            var mockRepo = new Mock<ISetRepository>();
+            mockRepo.Setup(repo => repo.FindPlayer(It.IsAny<int>()))
+                    .Returns(new ApplicationUser() { Id = 2, DisplayName = "TestPlayer" });
 
             var game = new Game();
             game.Id = 6;
@@ -291,8 +276,9 @@ namespace SetSite.Tests
                 Player = new ApplicationUser() { DisplayName = "Player2" } 
             });
 
-            mockRepo.Games.Add(game);
-            MultiplayerGameHub hub = new MultiplayerGameHub(mockRepo);
+            mockRepo.Setup(repo => repo.FindGame(It.IsAny<int>()))
+                    .Returns(game);
+            MultiplayerGameHub hub = new MultiplayerGameHub(mockRepo.Object);
 
             var mockGroupManager = new Mock<IGroupManager>();
             hub.Groups = mockGroupManager.Object;
@@ -313,11 +299,9 @@ namespace SetSite.Tests
             });
 
             mockClients.Setup(m => m.Caller).Returns((ExpandoObject)all);
-
-            // Act
+            
             hub.JoinGame(6).Wait();
-
-            // Assert
+            
             Assert.IsNotNull(playerSets);
             Assert.AreEqual(5, playerSets.Count);
             Assert.AreEqual(25, timeSet);

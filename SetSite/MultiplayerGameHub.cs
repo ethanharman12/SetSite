@@ -1,15 +1,11 @@
-﻿using System;
+﻿using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.SignalR;
+using SetSite.Models;
+using SetSite.Repositories;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
-using Microsoft.AspNet.SignalR;
-using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.Owin;
-using Microsoft.Owin.Security;
-using SetSite.Models;
 using System.Threading.Tasks;
-using SetSite.Data;
-using SetSite.Repositories;
 
 namespace SetSite
 {
