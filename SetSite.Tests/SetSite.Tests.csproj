@@ -128,8 +128,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="HubTest.cs" />
-    <Compile Include="Mocks\MockSetRepository.cs" />
-    <Compile Include="Mocks\MockUserStore.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Controllers\HomeControllerTest.cs" />
   </ItemGroup>
