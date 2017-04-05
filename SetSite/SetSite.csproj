@@ -24,6 +24,7 @@
     <SccLocalPath>SAK</SccLocalPath>
     <SccAuxPath>SAK</SccAuxPath>
     <SccProvider>SAK</SccProvider>
+    <UseGlobalApplicationHostFile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -213,10 +214,6 @@
     <Compile Include="Migrations\201507081410504_InitialR2.Designer.cs">
       <DependentUpon>201507081410504_InitialR2.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201507171908100_Update.cs" />
-    <Compile Include="Migrations\201507171908100_Update.Designer.cs">
-      <DependentUpon>201507171908100_Update.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\AnswerViewModel.cs" />
@@ -336,9 +333,6 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201507081410504_InitialR2.resx">
       <DependentUpon>201507081410504_InitialR2.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201507171908100_Update.resx">
-      <DependentUpon>201507171908100_Update.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
