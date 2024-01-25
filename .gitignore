@@ -215,3 +215,5 @@ pip-log.txt
 
 #Mr Developer
 .mr.developer.cfg
+/.vs/SetSite/v16/TestStore/0/000.testlog
+/.vs/SetSite/v16/TestStore/0/testlog.manifest
