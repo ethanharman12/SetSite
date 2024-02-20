@@ -24,7 +24,9 @@ namespace SetSite
                       "~/Scripts/respond.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
-                      "~/Content/bootstrap.css",
+                      "~/Content/bootstrap.min.css",
+                      //"~/Content/bootstrap-theme.css",
+                      //"~/Content/style.css",
                       "~/Content/site.css",
                       "~/Content/Set.css"));
         }

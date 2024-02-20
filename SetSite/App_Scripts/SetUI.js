@@ -124,7 +124,7 @@
     };
     function DrawCard(card)
     {
-        var cardHtml = "<svg id='Card" + card.id + "' class='card' style='opacity:" + (card.isNew ? "0" : "1") + "'>";
+        var cardHtml = "<svg id='Card" + card.id + "' class='setCard' style='opacity:" + (card.isNew ? "0" : "1") + "'>";
 
         var points = [];
 
@@ -304,6 +304,7 @@
         StartGame: StartGame,
         StartNextState: StartNextState,
         TimerHandler: TimerHandler,
-        UpdateScore: UpdateScore
+        UpdateScore: UpdateScore,
+        WriteGradients: WriteGradients
     };
 };

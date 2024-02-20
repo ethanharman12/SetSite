@@ -59,6 +59,7 @@
         });
     }
 
+    setUI.WriteGradients();
     DrawBoard("staticBoard");
     DrawBoard("exampleBoardAllSameColorNumber");
     HighlightSet("exampleBoardAllSameColorNumber", [1, 3, 6]);

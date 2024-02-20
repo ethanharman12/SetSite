@@ -75,7 +75,7 @@
     display:block;
 }
 
-.card {
+.setCard {
     height: 100px;
     width: 100px;
     border: solid 1px black;
@@ -87,7 +87,7 @@
     box-sizing: content-box;
 }
 
-.exampleBoard > .card, .exampleCard {
+.exampleBoard > .setCard, .exampleCard {
     cursor: default;
 }
 
